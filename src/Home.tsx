@@ -169,7 +169,7 @@ export const Home: React.FC<HomeProps> = ({
             {/* Special Card Holders Card */}
             <div className="card w-full bg-base-100 card-md shadow-lg mt-4">
                 <div className="card-body">
-                    <h2 className="card-title">Special Card Holders</h2>
+                    <h2 className="card-title">Special Card Reigning Champs</h2>
                     <div className="overflow-x-auto">
                         <table className="table">
                             <tbody>

@@ -100,14 +100,31 @@ export const getGeneralFacts = (results: GameResult[]): GeneralFacts => {
 export const getSpecialCardHolders = (
     results: GameResult[]
 ): { longestRoad: string | null; largestArmy: string | null } => {
-    if (results.length === 0) {
-        return { longestRoad: null, largestArmy: null };
-    }
 
-    const latestGame = results[results.length - 1]; // Get the most recent game
+    const gamesWithLongestRoadWinner = results.filter(
+        x => x.longestRoadHolder && x.longestRoadHolder !== "None"
+    );
+
+    const mostRecentLongestRoadGameResult = gamesWithLongestRoadWinner.length > 0
+        ? gamesWithLongestRoadWinner[gamesWithLongestRoadWinner.length - 1]
+        : null
+    ;
+
+    const gamesWithLargestArmyWinner = results.filter(
+        x => x.largestArmyHolder && x.largestArmyHolder !== "None"
+    );
+
+    const mostRecentLargestArmyGameResult = gamesWithLargestArmyWinner.length > 0
+        ? gamesWithLargestArmyWinner[gamesWithLargestArmyWinner.length - 1]
+        : null
+    ;
     return {
-        longestRoad: latestGame.longestRoadHolder,
-        largestArmy: latestGame.largestArmyHolder
+        longestRoad: mostRecentLongestRoadGameResult !== null
+            ? `${mostRecentLongestRoadGameResult.longestRoadHolder} since ${new Date(mostRecentLongestRoadGameResult.end).toLocaleString()}`
+            : null,
+        largestArmy: mostRecentLargestArmyGameResult !== null
+            ? `${mostRecentLargestArmyGameResult.largestArmyHolder} since ${new Date(mostRecentLargestArmyGameResult.end).toLocaleString()}`
+            : null,
     };
 };
 
